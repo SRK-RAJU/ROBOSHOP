@@ -4,7 +4,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/IdeaProjects" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ansible" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ansible-raju" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ansible-raju" vcs="" />
     <mapping directory="$PROJECT_DIR$/shell-" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/todo.shell" vcs="Git" />
   </component>
