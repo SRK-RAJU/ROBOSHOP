@@ -29,6 +29,7 @@ resource "aws_route53_record" "records" {
 resource "null_resource" "ansible" {
   depends_on = [aws_route53_record.records]
   count      = length(var.components)
+
   provisioner "remote-exec" {
     connection {
       host     = element(aws_spot_instance_request.cheap_worker.*.private_ip, count.index)
@@ -58,6 +59,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-#locals {
-#  COMP_NAME = element(var.components, count.index)
-#}
+locals {
+COMP_NAME = element(var.components, count.index)
+}
