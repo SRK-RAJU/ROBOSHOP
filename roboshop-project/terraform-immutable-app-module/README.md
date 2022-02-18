@@ -1,1 +1,0 @@
-# terraform-immutable-app-module

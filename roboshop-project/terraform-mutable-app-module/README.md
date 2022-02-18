@@ -1,1 +1,0 @@
-# terraform-mutable-app-module
