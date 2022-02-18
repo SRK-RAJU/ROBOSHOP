@@ -38,6 +38,10 @@ resource "null_resource" "ansible" {
     }
     inline = [
       "sudo yum install python3-pip -y",
+      "sudo yum install nginx -y",
+      "sudo systemctl restart nginx",
+      "sudo yum install maven",
+      "sudo yum install mongodb",
       "sudo pip3 install pip --upgrade",
       "sudo pip3 install ansible",
       "ansible-pull -U https://dev.azure.com/DevOps-Batches/DevOps60/_git/ansible roboshop-pull.yml -e COMPONENT=${element(var.components, count.index)} -e ENV=dev"
