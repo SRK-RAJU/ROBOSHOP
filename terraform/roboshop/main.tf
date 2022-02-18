@@ -62,3 +62,4 @@ provider "aws" {
 #locals {
 #COMP_NAME = element(var.components, count.index)
 #}
+#Not Loading Locals due to multiple spot instance size exhausted if run this in locals function in the main terraform
