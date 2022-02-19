@@ -38,7 +38,7 @@ resource "null_resource" "ansible" {
     }
     inline = [
       "sudo yum install python3-pip -y",
-      "sudo yum install nginx -y",
+      "sudo yum reinstall nginx -y",
       "sudo systemctl restart nginx",
       "sudo yum install maven",
       "sudo yum install mongodb",
@@ -51,7 +51,7 @@ resource "null_resource" "ansible" {
 
 data "aws_ami" "ami" {
   most_recent = true
-  name_regex  = "^Centos*"
+  name_regex  = "^Cent*"
   owners      = ["973714476881"]
 }
 
