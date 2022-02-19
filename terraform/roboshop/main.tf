@@ -33,7 +33,7 @@ resource "null_resource" "ansible" {
   provisioner "remote-exec" {
     connection {
       host     = element(aws_spot_instance_request.cheap_worker.*.private_ip, count.index)
-      user     = "centos"
+      user     = "root"
       password = "DevOps321"
     }
     inline = [
@@ -44,7 +44,7 @@ resource "null_resource" "ansible" {
       "sudo yum install mongodb",
       "sudo pip3 install pip --upgrade",
       "sudo pip3 install ansible",
-      "ansible-pull -U https://dev.azure.com/DevOps-Batches/DevOps60/_git/ansible roboshop-pull.yml -e COMPONENT=${element(var.components, count.index)} -e ENV=dev"
+      "ansible-pull -U https://dev.azure.com/SUDDALARAJUKUMAR/ROBOSHOP/_git/ansible roboshop-pull.yml -e COMPONENT=${element(var.components, count.index)} -e ENV=dev"
     ]
   }
 }
