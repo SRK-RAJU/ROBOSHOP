@@ -1,51 +1,46 @@
 - name: Install Nginx
-  ansible.builtin.yum:
+  yum:
     name: nginx
-    state: installed
+    state: latest
 
-- name: Download and UnZip the Frontend Content
-  ansible.builtin.import_role:
+- name: Download code
+  include_role:
     name: common
     tasks_from: download
+  vars:
+    APP_LOCATION: /usr/share/nginx/html/
 
-- name: Remove Old Html Web Pages
-  ansible.builtin.file:
-    path: /usr/share/nginx/html
-    state: absent
-
-- name: Create HTML Dir
-  ansible.builtin.file:
-    path: /usr/share/nginx/html
-    state: directory
-
-#- name: Copy the HTML Files
-#  ansible.builtin.copy:
-#    src: /tmp/frontend-main/static/
-#    dest: /usr/share/nginx/html/
-#    remote_src: yes
-
-- name: Unzip {{COMPONENT}}
-  ansible.builtin.unarchive:
-    src: /tmp/{{COMPONENT}}-{{APP_VERSION}}.zip
-    dest: /usr/share/nginx/html
+- name: Copy the Htdocs content
+  ansible.builtin.copy:
+    src: /tmp/frontend-main/static/
+    dest: /usr/share/nginx/html/
     remote_src: yes
+  when: APP_VERSION == ""
 
-- name: Copy roboshop reverse proxy configuration
+- name: Copy RoboShop Config file
   ansible.builtin.template:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
-  #notify: Restart Nginx
 
-- name: Copy Nignx Main Config
+- name: Copy Nginx Config file
   ansible.builtin.template:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
-  #notify: Restart Nginx
 
-- name: Start Nginx
+- name: Start Nginx Service
+  ansible.builtin.systemd:
+    state: restarted
+    name: nginx
+    enabled: yes
+  when: AMI is not defined
+
+- name: Enable Nginx Service
   ansible.builtin.systemd:
     name: nginx
-    state: restarted
     enabled: yes
-  ignore_errors: yes
+  when: AMI is defined
+
+- name: Setup Node Exporter
+  ansible.builtin.include_role:
+    name: node-exporter
 

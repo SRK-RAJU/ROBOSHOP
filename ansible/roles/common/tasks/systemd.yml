@@ -1,12 +1,19 @@
-- name: Update {{COMPONENT}} SystemD file
-  ansible.builtin.template:
+- name: Update systemd file
+  template:
     src: systemd.service
     dest: /etc/systemd/system/{{COMPONENT}}.service
 
 - name: Start {{COMPONENT}} Service
-  ansible.builtin.systemd:
+  systemd:
     name: "{{COMPONENT}}"
     state: restarted
-    #enabled: yes
+    enabled: yes
     daemon_reload: yes
+  when: AMI is not defined
 
+- name: Enable {{COMPONENT}} Service
+  systemd:
+    name: "{{COMPONENT}}"
+    enabled: yes
+    daemon_reload: yes
+  when: AMI is defined

@@ -1,22 +1,19 @@
-- name: tag demo on tasks
+- name: Demo on tags
   hosts: localhost
   tasks:
-    - name: Catalogue
+    - name: Fruits
       debug:
-        msg: Hello from Catalogue
-      tags: catalogue
-    - name:  Frontend
-      debug:
-        msg: Hello from Frontend
-      tags: frontend
-    - name: Common
-      debug:
-        msg: Hello from Common
+        msg: Fruits
+      tags:
+        - fruits
+        - fruit
 
-- name: demo of tag on play level - frontend
-  tags: frontend
-  hosts: localhost
-  tasks:
-    - name: Frontend
+    - name: Groceries
+      tags:
+        - groceries
+        - cerals
       debug:
-        msg: Hello from Frontend
+        msg: groceries
+
+
+# Tags can be applied on plays in playbook

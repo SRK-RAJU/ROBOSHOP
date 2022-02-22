@@ -1,4 +1,4 @@
-- name: Import Maven for Shipping
-  ansible.builtin.import_role:
+- name: Import Maven
+  ansible.builtin.include_role:
     name: common
     tasks_from: maven

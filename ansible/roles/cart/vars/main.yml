@@ -1,5 +1,6 @@
 COMPONENT: cart
-COMPONENT_TYPE: APP
-LOG_FILE: /var/log/cart.log
+APP_TYPE: backend
 LOG_TYPE: json
-APP_LANG: nodejs
+MULTILINE_TYPE: none
+INCLUDE_LINES: none
+LOG_FILE: "/var/log/{{COMPONENT}}.log"

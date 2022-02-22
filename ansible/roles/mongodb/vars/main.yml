@@ -1,2 +1,2 @@
 COMPONENT: mongodb
-COMPONENT_TYPE: DB
+APP_TYPE: db

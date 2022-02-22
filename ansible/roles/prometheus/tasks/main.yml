@@ -1,36 +1,24 @@
-- name: Update Prometheus Configuration
+- name: Copy Prometheus Config
   template:
-    src: prometheus.yml
-    dest: /opt/prometheus/prometheus.yml
+    src: "{{item}}.yml"
+    dest: /opt/prometheus/{{item}}.yml
+  loop:
+    - alerts
+    - prometheus
+    - records
 
-- name: Uodate Records file
-  template:
-    src: records.yml
-    dest: /opt/prometheus/records.yml
+- name: Restart prometheus
+  systemd:
+    name: prometheus
+    state: restarted
 
-- name: Update Instance Alerts file
-  template:
-    src: alerts.yml
-    dest: /opt/prometheus/alerts.yml
-
-- name: Update Application Alerts file
-  template:
-    src: appAlerts.yml
-    dest: /opt/prometheus/appAlerts.yml
-
-- name: Update AlertManager Configuration
+- name: Copy Alert Manager Config
   template:
     src: alertmanager.yml
     dest: /opt/alertmanager/alertmanager.yml
 
-- name: Restart Prometheus
-  systemd:
-    name: prometheus
-    state: restarted
-    enabled: yes
-
-- name: Restart AlertManager
+- name: Restart alertmanager
   systemd:
     name: alertmanager
     state: restarted
-    enabled: yes
+
